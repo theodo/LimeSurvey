@@ -4675,8 +4675,7 @@ function do_array($ia)
             $caption.=gT("The last cell are for no answer. ");
         }
         $cellwidth = round( ($columnswidth / $numrows ) , 1 );
-
-        //New way to work
+        //if it is a multi item question, change the template so that it is a series of panels instead of one table
         if($anscount>1) {
             $answer = "";
             foreach ($aQuestions as $subQuestion) {
@@ -4744,12 +4743,7 @@ function do_array($ia)
                 $answer .= $subQuestionStart . $subQuestionHead . $subQuestionAnswersWrapper . $tableStart . $tableHead . $tableBody . $subQuestionEnd;
             }
         }
-
-
-
-
-        //Old way to work
-        else {
+        else { //only one question, keep regular way of dealing with it
             $answer_start = "\n<table class=\"question subquestions-list questions-list {$extraclass}\" summary=\"{$caption}\">\n";
             $answer_head_line = "\t<td>&nbsp;</td>\n";
             foreach ($labelans as $ld) {
