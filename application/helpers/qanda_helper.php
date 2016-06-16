@@ -4677,6 +4677,7 @@ function do_array($ia)
         $cellwidth = round( ($columnswidth / $numrows ) , 1 );
 
         //New way to work
+        var_dump($anscount);
         if($anscount>1) {
             $answer = "";
             foreach ($aQuestions as $subQuestion) {
