@@ -4725,6 +4725,18 @@ function do_array($ia)
 
                     $thiskey++;
                 }
+                if ($ia[6] != 'Y' && SHOW_NO_ANSWER == 1) {
+                    $tableBody .= "\t<td class=\"answer-item radio-item noanswer-item\">\n"
+                        . "\t<input class=\"radio\" type=\"radio\" name=\"$myfname\" value=\"\" id=\"answer$myfname-\" ";
+                    if (!isset($_SESSION['survey_' . Yii::app()->getConfig('surveyID')][$myfname]) || $_SESSION['survey_' . Yii::app()->getConfig('surveyID')][$myfname] == '') {
+                        $tableBody .= CHECKED;
+                    }
+                    // --> START NEW FEATURE - SAVE
+                    $tableBody .= " onclick=\"$checkconditionFunction(this.value, this.name, this.type)\"  />\n"
+                        . "<label class=\"hide read\" for=\"answer$myfname-\">" . gT('No answer') . "</label>\n"
+                        . "\t</td>\n";
+                    // --> END NEW FEATURE - SAVE
+                }
                 $tableBody .= "</tr>\n";
                 $tableBody .= "</tbody>\n";
                 $subQuestionEnd = "\n</table>\n". "\n</div>\n". "\n</div>\n";
