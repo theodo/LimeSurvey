@@ -4682,10 +4682,21 @@ function do_array($ia)
             foreach ($aQuestions as $subQuestion) {
                 $subQuestionStart = "\n<div class=\"question-wrapper array-flexible-row mandatory required\">\n";
                 $labelSubQuestion = $subQuestion['question'];
-                $subQuestionHead = "\n<div class=\"question-text\">\n" . $labelSubQuestion . "</div>\n";
+                $trbc = '';
+                $trbc = alternation($trbc, 'row');
+                $myfname = $ia[1] . $subQuestion['title'];
+                list($htmltbody2, $hiddenfield) = return_array_filter_strings($ia, $aQuestionAttributes, $thissurvey, $subQuestion, $myfname, $trbc, $myfname, "tr", "$trbc answers-list radio-list");
+                $fn++;
+                $subQuestionHead = "\n<div class=\"question-text\">\n" . $labelSubQuestion
+                . $hiddenfield
+                . "<input type=\"hidden\" name=\"java$myfname\" id=\"java$myfname\" value=\"";
+                if (isset($_SESSION['survey_' . Yii::app()->getConfig('surveyID')][$myfname])) {
+                    $subQuestionHead .= $_SESSION['survey_' . Yii::app()->getConfig('surveyID')][$myfname];
+                }
+                $subQuestionHead .= "\" />\n\t</div>\n";
                 $subQuestionAnswersWrapper = "\n<div class=\"answers-wrapper clearfix\">\n";
                 $tableStart = "\n<table class=\"question subquestions-list questions-list {$extraclass}\" summary=\"{$caption}\">\n";
-                $answer_head_line = "\t<td>&nbsp;</td>\n";
+                $answer_head_line = "";
                 foreach ($labelans as $ld) {
                     $answer_head_line .= "\t<th>" . $ld . "</th>\n";
                 }
@@ -4698,19 +4709,7 @@ function do_array($ia)
                 }
                 $tableHead = "\t<thead><tr class=\"dontread\">\n" . $answer_head_line . "</tr></thead>\n\t\n";
                 $tableBody = '<tbody>';
-                $trbc = '';
-                $trbc = alternation($trbc, 'row');
-                $myfname = $ia[1] . $subQuestion['title'];
-                list($htmltbody2, $hiddenfield) = return_array_filter_strings($ia, $aQuestionAttributes, $thissurvey, $subQuestion, $myfname, $trbc, $myfname, "tr", "$trbc answers-list radio-list");
-                $fn++;
                 $tableBody .= $htmltbody2;
-                $tableBody .= "\t<th class=\"answertext\">\n$labelSubQuestion"
-                    . $hiddenfield
-                    . "<input type=\"hidden\" name=\"java$myfname\" id=\"java$myfname\" value=\"";
-                if (isset($_SESSION['survey_' . Yii::app()->getConfig('surveyID')][$myfname])) {
-                    $tableBody .= $_SESSION['survey_' . Yii::app()->getConfig('surveyID')][$myfname];
-                }
-                $tableBody .= "\" />\n\t</th>\n";
                 $thiskey = 0;
                 foreach ($labelcode as $ld) {
                     $tableBody .= "\t\t\t<td class=\"answer_cell_00$ld answer-item radio-item\">\n"
