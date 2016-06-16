@@ -4677,7 +4677,6 @@ function do_array($ia)
         $cellwidth = round( ($columnswidth / $numrows ) , 1 );
 
         //New way to work
-        var_dump($aQuestions);
         if($anscount>1) {
             $answer = "";
             foreach ($aQuestions as $subQuestion) {
@@ -4729,7 +4728,7 @@ function do_array($ia)
                 }
                 $tableBody .= "</tr>\n";
                 $tableBody .= "</tbody>\n";
-                $subQuestionEnd = "\n</table>\n". "\n</div>\n";
+                $subQuestionEnd = "\n</table>\n". "\n</div>\n". "\n</div>\n";
 
                 $answer .= $subQuestionStart . $subQuestionHead . $subQuestionAnswersWrapper . $tableStart . $tableHead . $tableBody . $subQuestionEnd;
             }
