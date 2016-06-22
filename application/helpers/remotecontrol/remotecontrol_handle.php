@@ -1214,6 +1214,8 @@ class remotecontrol_handle
                         $oGroup->$sFieldName=$aGroupAttributes[$sFieldName];
                     }
                 }
+		Question::model()->updateQuestionOrder($iGroupID, $sGroupLanguage);
+
                 return $aResult;
             }
             else
@@ -1821,7 +1823,8 @@ class remotecontrol_handle
                     try
                     {
                         $bSaveResult=$oQuestion->save(false); // save the change to database
-                        Question::model()->updateQuestionOrder($oQuestion->gid, $oQuestion->language);
+			// The following line has been commented in order to allow all questions sortOrder update before reindexing the group
+                        //Question::model()->updateQuestionOrder($oQuestion->gid, $oQuestion->language);
                         $aResult[$sFieldName]=$bSaveResult;
                         //unset fields that failed
                         if (!$bSaveResult)
