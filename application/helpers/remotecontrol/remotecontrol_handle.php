@@ -1715,9 +1715,9 @@ class remotecontrol_handle
                         $oQuestionAttribute->save();
                     }
 		    if (('defaultvalue' == $sFieldName)) {
-			$oDefaultValue = DefaultValue::model()->findByAttributes(array('qid' => $oQuestion->qid));
+			$oDefaultValue = DefaultValue::model()->findByAttributes(array('qid' => $oQuestion->qid, 'language' => $sLanguage));
 			if (null != $oDefaultValue) {
-			    DefaultValue::model()->deleteAllByAttributes(array('qid' => $oQuestion->qid));
+			    DefaultValue::model()->deleteAllByAttributes(array('qid' => $oQuestion->qid, 'language' => $sLanguage));
 			}
 			$oDefaultValue = new DefaultValue();
 			$oDefaultValue->qid = $oQuestion->qid;
